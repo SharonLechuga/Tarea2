@@ -64,6 +64,7 @@ public class LinkedList<E> implements List<E> {
         newElement.next = header;
         header.prev = newElement;
         size++;
+        size--;
     }
 
     @Override
