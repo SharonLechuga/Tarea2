@@ -115,6 +115,8 @@ public interface List<E> {
 	 * @return true if this collection contains no elements
 	 */
 	public boolean isEmpty();
+        
+        public E josephus();
 	
 	/**
 	 * Returns an array containing all of the elements in this list in proper sequence (from first to last element).
