@@ -1,174 +1,161 @@
 package practice3;
-
+/**
+ *
+ * @author SharonLechuga
+ */
 import java.util.NoSuchElementException;
 
 public class ArrayList<E> implements List<E> {
-	private Object[] top;
+	public Object[] top;
 	private int size;
 	private int initialCapacity = 5;
 	private int extraCapacity = 5;
-        private Node<E> header;
-        
 	
-	/**
-	 * Creates a new ArrayList instance with the default initial capacity.
-	 */
 	public ArrayList() {
 		top = new Object[initialCapacity];
 		size = 0;
 	}
 	
-	/**
-	 * Increases the capacity of this ArrayList instance so that it 
-	 * can hold at least extraCapacity elements more.
-	 * This method allocates a new array with greater capacity than the
-	 * current one (top.length + extraCapacity) and copies all elements
-	 * from top to the newly allocated array. The reference top is then
-	 * updated to point to the new array. 
-	 * @param extraCapacity increase the capacity of this ArrayList by this amount
-	 */
-	private void reserveExtraCapacity(int extraCapacity, int initialCapacity) {
-             Node<E> current = header;
-            for(int i =1 ; i <= extraCapacity; i++){
-                current = current.next;
-                initialCapacity += i;
-                this.initialCapacity = initialCapacity;
-            }
-            top = new Object[initialCapacity];
-            top.next = current.prev;
-            current.prev = top;
-
-               
+	private void reserveExtraCapacity(int extraCapacity) {
+		int targetCapacity = top.length + extraCapacity;
+		Object[] newList = new Object[targetCapacity];
+		
+		for(int i = 0; i< size; i++) {
+			newList[i] = top[i];
+		}
+		
+		top = newList;
 	}
-        
 	
-	/**
-	 * Increases the capacity of this list if its size equals the length of the array
-	 * where the data is stored. This method calls reserveExtraCapacity when (size() >= top.length).
-	 * reserveExtraCapacity is called using the instance variable extraCapacity.
-	 */
 	private void ensureCapacity() {
-            if(size() >= top.length){
-                top.reserveExtraCapacity();
-            }
+		if(size >= top.length) {
+			reserveExtraCapacity(extraCapacity);
+		}
 	}
 	
-	/**
-	 * Shifts elements in the array (top) to the right, starting at the given position.
-	 * @param index the position in which the shift will begin
-	 * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
-	 */
-	private void shiftContentsRight (int index) {
-            if(index < 0 || index >= size()) {
+	private void shiftContentsRight(int index) {
+		if(index < 0 || index > size()) {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		if(index < (size >> 1)) {
-			Node<E> x = header.next;
-			for(int i=0; i<index; i++)
-				x = x.next;
-		}
+		ensureCapacity();
+		
+		for(int i=size; i > index; i--)
+			top[i] = top[i - 1];
+		
+		top[index] = null;
 	}
 	
-	@Override
 	public void addFirst(E e) {
-            Node<E> newElement = new Node<E>(e);
+		shiftContentsRight(0);
 		
-		Node<E> firstElement = header.next;
-		newElement.next = firstElement;
-		firstElement.prev = newElement;
-		
-		newElement.prev = header;
-		header.next = newElement;
-		
+		top[0] = e;
 		size++;
 	}
 
-	@Override
+	
 	public void addLast(E e) {
-            Node<E> newElement = new Node<E>(e);
+		ensureCapacity();
 		
-		Node<E> lastElement = header.prev;
-		newElement.prev = lastElement;
-		lastElement.next = newElement;
-		
-		newElement.next = header;
-		header.prev = newElement;
-		
+		top[size] = e;
 		size++;
 	}
 
-	@Override
 	public void add(int index, E element) {
-            if(index < 0 || index > size()) {
+		if(index < 0 || index > size()) {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		if(index == size()) {
-			addLast(element);
-		} else {
-			Node<E> newNode = new Node<E>(element);
-			
-			Node<E> current = node(index);
-			Node<E> previousNode = current.prev;
-			newNode.prev = previousNode;
-			previousNode.next = newNode;
-			
-			newNode.next = current;
-			current.prev = newNode;
-			
-			size++;
-		}
+		shiftContentsRight(index);
+		
+		top[index] = element;
+		size++;
 	}
 
-	@Override
+
+	public E removeFirst() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public E removeLast() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public E remove(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public boolean remove(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	public E getFirst() {
-		if(header.next == header) {
+		if(isEmpty()) {
 			throw new NoSuchElementException();
 		}
 		
-		return header.next.value;
+		@SuppressWarnings("unchecked")
+		E firstElement = (E)top[0];
+		
+		return firstElement;
 	}
 
-	
 	@Override
 	public E getLast() {
-		if(header.next == header) {
+		if(isEmpty())
 			throw new NoSuchElementException();
-		}
 		
-		return header.prev.value;
+		@SuppressWarnings("unchecked")
+		E lastElement = (E)top[size - 1];
+		
+		return lastElement;
 	}
 
-	
 	@Override
 	public E get(int index) {
-		if(index < 0 || index >= size()) {
+		if (index < 0 || index >= size())
 			throw new IndexOutOfBoundsException();
-		}
 		
-		Node<E> nodeToReturn = node(index);
-                return nodeToReturn.value;
+		@SuppressWarnings("unchecked")
+		E elementAtIndex = (E)top[index];
+		
+		return elementAtIndex;
 	}
 
 	@Override
 	public E set(int index, E element) {
-		if(index < 0 || index >= size()) {
+		if(index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		Node<E> nodeToSet = node(index);
-		E currentValue = nodeToSet.value;
-		nodeToSet.value = element;
+		@SuppressWarnings("unchecked")
+		E previousElement = (E)top[index];
+		top[index] = element;
 		
-		return currentValue;
+		return previousElement;
+	}
+
+	public boolean contains(E e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public int indexOf(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public void clear() {
-            header.next = header;
-		header.prev = header;
 		size = 0;
+		
 	}
 
 	@Override
@@ -181,25 +168,23 @@ public class ArrayList<E> implements List<E> {
 		return size() == 0;
 	}
 
-	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public String toString() {
-		if(header.next == header) {
+		if(size <= 0) {
 			return "[]";
 		}
 		
-		Node<E> current = header.next;
-		String str = "[" + current.value;
-		while(current.next != header) {
-			current = current.next;
-			str += ", " + current.value;
+		String str = "[" + top[0];
+		for(int i=1; i<size; i++) {
+			str += ", " + top[i];
 		}
 		str += "]";
 		
 		return str;
 	}
-        private Node<E> node(int index){
-		if(index < 0 || index >= size()) {
-			throw new IndexOutOfBoundsException();
-		}
-}
+
 }

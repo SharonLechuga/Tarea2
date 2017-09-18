@@ -1,3 +1,10 @@
+package practice3;
+
+/**
+ *
+ * @author SharonLechuga
+ * @param <E>
+ */
 
 public interface List<E> {
 	
@@ -82,6 +89,7 @@ public interface List<E> {
 	 * @param index index of the element to replace
 	 * @param element element to be stored at the specified position
 	 * @return the element previously at the specified position
+	 * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
 	 */
 	public E set(int index, E element);
 	
@@ -115,8 +123,6 @@ public interface List<E> {
 	 * @return true if this collection contains no elements
 	 */
 	public boolean isEmpty();
-        
-        public E josephus();
 	
 	/**
 	 * Returns an array containing all of the elements in this list in proper sequence (from first to last element).

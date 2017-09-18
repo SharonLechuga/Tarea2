@@ -7,7 +7,7 @@ package practice3;
 
 /**
  *
- * @author chich
+ * @author SharonLechuga
  */
 public class DraftList {
     private LinkedList<String> daList;
