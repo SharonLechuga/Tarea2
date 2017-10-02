@@ -8,8 +8,37 @@ package practice3;
 import java.util.Arrays;
 
 public class Main {
-	public static void main(String[] args) {
+      int [] values;
+            int  target;
+            
+     public static int linearSearch(int [] values,int target) {
+                    for(int i =0; i == values.length; i++ ){
+                        if(values[i] == target)
+                            return 1;
+                        if(values[i] > target)
+                            return -1;  
+                    }
+                    return -1;
 		
+	}
+                 public static int binarySearch(int [] values,int target) {
+                     Integer min = 0;
+                     Integer max = values.length - 1;
+                     Integer mid;
+                     while(min <= max){
+                         mid = (min + max)/2;
+                         
+                         if(target < mid)
+                             max = mid +1;
+                         else if (target > mid)
+                             min = mid +1;
+                         else
+                             return mid;
+                    }
+                    return -1;
+                 }
+	public static void main(String[] args) {
+          
 		System.out.println("Testing array reversing");
 		int[] inputArray = {1, 2, 3, 4, 5};
 		
@@ -75,16 +104,9 @@ public class Main {
 		System.out.println("Hanoi tower #3: " + Arrays.toString(towerThree.toArray()));
 		System.out.println();
                 
-                private void linearSearch(Data values[],Data target) {
-                    for(i =0; i = length.values; i++ ){
-                        if(values[i] == target)
-                            return 1;
-                        if(values[i] > target)
-                            return -1;  
-                    }
-                    return -1;
+               
 		
 	}
 }
         
-}
+
