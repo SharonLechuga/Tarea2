@@ -74,5 +74,17 @@ public class Main {
 		System.out.println("Hanoi tower #2: " + Arrays.toString(towerTwo.toArray()));
 		System.out.println("Hanoi tower #3: " + Arrays.toString(towerThree.toArray()));
 		System.out.println();
+                
+                private void linearSearch(Data values[],Data target) {
+                    for(i =0; i = length.values; i++ ){
+                        if(values[i] == target)
+                            return 1;
+                        if(values[i] > target)
+                            return -1;  
+                    }
+                    return -1;
+		
 	}
+}
+        
 }
