@@ -38,7 +38,7 @@ public class Main {
                     return -1;
                  }
 	public static void main(String[] args) {
-          
+           
 		System.out.println("Testing array reversing");
 		int[] inputArray = {1, 2, 3, 4, 5};
 		

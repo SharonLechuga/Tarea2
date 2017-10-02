@@ -8,6 +8,7 @@ package practice3;
 /**
  *
  * @author SharonLechuga
+ * @param <E>
  */
 
 public interface IQueue<E> {

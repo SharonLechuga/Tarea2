@@ -7,7 +7,7 @@ package practice3;
 
 import java.util.NoSuchElementException;
 
-public class Queue<E> implements IQueue<E> {
+public abstract class Queue<E> implements IQueue<E> {
 
     private LinkedList<E> queue;
 
@@ -51,7 +51,6 @@ public class Queue<E> implements IQueue<E> {
         return queue.size();
     }
 
-    @Override
     public Object[] toArray() {
         return queue.toArray();
     }
