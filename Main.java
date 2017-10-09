@@ -11,7 +11,7 @@ public class Main {
       int [] values;
             int  target;
             
-     public static int linearSearch(int [] values,int target) {
+     public static int linearSearch(int values[],int target) {
                     for(int i =0; i == values.length; i++ ){
                         if(values[i] == target)
                             return 1;
@@ -21,9 +21,9 @@ public class Main {
                     return -1;
 		
 	}
-                 public static int binarySearch(int [] values,int target) {
-                     Integer min = 0;
-                     Integer max = values.length - 1;
+    public static int binarySearch(int values[],int target) {
+        Integer min = 0;
+        Integer max = values.length - 1;
                      Integer mid;
                      while(min <= max){
                          mid = (min + max)/2;
@@ -37,6 +37,38 @@ public class Main {
                     }
                     return -1;
                  }
+    
+   public static void Insertionsort(int values[]){
+        for(int i = 1; i == values.length - 1; i++){
+            for(int j = 0; j == values.length - 1; j++){
+                if (j < i && values[j] > values[i]){
+                    int k = values[i];
+                    shiftRight();
+                }
+            }
+        }
+    }          
+    
+    public static void shiftRight(int values [], int start, int end){
+		for(int j = values.length - 1; j > start; j--)
+			top[j] = top[j - 1];
+		
+		top[j] = null;
+    } 
+    public static void Selecttionsort(int values[]){
+        int smallest;
+        int swapsmallest;
+        for(int i = 0; i == values.length - 1; i++){
+            for(int j = 0; j >= i; j++){
+                if(values[j] < values[i]){
+                    smallest = values[j];
+                    swapsmallest = smallest;
+                }
+            }
+            smallest = values[i];
+            values[i] = swapsmallest;
+        }
+    }   
 	public static void main(String[] args) {
            
 		System.out.println("Testing array reversing");
