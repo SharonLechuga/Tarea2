@@ -142,7 +142,7 @@ public class Main {
                 return result;
      }
      
-          public static void heapsort(int values[]){
+         /* public static void heapsort(int values[]){
                 for(int i = 0; i < values.length; i--){
                     int temp = values[0];
                     values[0] = values[i];
@@ -150,6 +150,34 @@ public class Main {
                     
                 }
             }
+          */
+          public static String reverseParentheses(String texto){  
+              int start = 0;
+              int end = 0;
+              String save = null;
+              Stack pila = new Stack();
+              char p =  pila.pop();             
+              for(int i = 0; i < texto.length(); i++){
+                  char c = texto.charAt(i);
+                  if (texto.charAt(i) != '(' && texto.charAt(i) != ')'){
+                      save = "" + c;
+                  }
+                  if (texto.charAt(i) == '('){
+                      pila.push(')');
+                      start = i;
+                  }
+                  if (texto.charAt(i) == p){
+                      end = i;
+                  }
+                  if (c == p) {
+                      for(int x = start + 1; x < end; x++){
+                          pila.push(x);
+                      } 
+                  }
+               }
+              String yolo = save + pila.pop();
+              return yolo;
+          }
           
 	public static void main(String[] args) {
             System.out.println("makeHeap");
@@ -163,11 +191,11 @@ public class Main {
              System.out.println(removeTopItem(uArray, uArray.length));
              System.out.println(Arrays.toString(uArray));
              
-             System.out.println("heapsort");
+             /*System.out.println("heapsort");
             int dArray[] = {1, 0, 24, 18, -2, 10};
              System.out.println(Arrays.toString(dArray));
              heapsort(dArray);
-             System.out.println(Arrays.toString(dArray));
+             System.out.println(Arrays.toString(dArray));*/
              
              System.out.println("LinearSearch");
              int bArray[] = {2, 5, 9, 12, 18, 20};
@@ -195,6 +223,12 @@ public class Main {
              System.out.println(Arrays.toString(kArray));
              Insertionsort(kArray);
              System.out.println(Arrays.toString(kArray));
+             
+             System.out.println("ReverseParentheses");
+             String frase = "a(bc)de";
+             System.out.println(frase);
+             reverseParentheses(frase);
+             System.out.println(frase);
 	}
 }
         
