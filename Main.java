@@ -142,42 +142,50 @@ public class Main {
                 return result;
      }
      
-         /* public static void heapsort(int values[]){
-                for(int i = 0; i < values.length; i--){
-                    int temp = values[0];
-                    values[0] = values[i];
-                    values[i] = temp;
-                    
-                }
-            }
-          */
-          public static String reverseParentheses(String texto){  
-              int start = 0;
-              int end = 0;
-              String save = null;
-              Stack pila = new Stack();
-              char p =  pila.pop();             
-              for(int i = 0; i < texto.length(); i++){
-                  char c = texto.charAt(i);
-                  if (texto.charAt(i) != '(' && texto.charAt(i) != ')'){
-                      save = "" + c;
+         public static void heapsort(int values[]){
+             makeHeap(values);
+             
+             for(int i = values.length; i > 0; i--){
+                 int lastItem = removeTopItem(values, i);
+                 values[i - 1] = lastItem;                    
+             }
+         }
+          
+          public static String reverseParentheses(String inputString){  
+              String result = "";
+              Stack<Stack<Character>> letters = new Stack<Stack<Character>>();
+
+              for(int i = 0; i < inputString.length(); i++){
+                  char ch = inputString.charAt(i);
+                  if (ch == '(' ){
+                      letters.push(new Stack<Character>()); 
                   }
-                  if (texto.charAt(i) == '('){
-                      pila.push(')');
-                      start = i;
+                  else if (ch == ')'){
+                      Stack<Character> reversed = letters.pop();
+                      if(letters.empty()){
+                          while(!reversed.empty()){
+                              result += reversed.pop();
+                          }
+                      }
+                      else{
+                          while(!reversed.empty()){
+                              letters.peek().push(reversed.pop());
+                          }
+                      }
                   }
-                  if (texto.charAt(i) == p){
-                      end = i;
+                  else {
+                      if(!letters.empty()){
+                          letters.peek().push(ch);
+                      }
+                      else{
+                          result += ch;
+                      }
                   }
-                  if (c == p) {
-                      for(int x = start + 1; x < end; x++){
-                          pila.push(x);
-                      } 
-                  }
-               }
-              String yolo = save + pila.pop();
-              return yolo;
+              }
+              return result;
           }
+
+
           
 	public static void main(String[] args) {
             System.out.println("makeHeap");
@@ -191,11 +199,11 @@ public class Main {
              System.out.println(removeTopItem(uArray, uArray.length));
              System.out.println(Arrays.toString(uArray));
              
-             /*System.out.println("heapsort");
+             System.out.println("heapsort");
             int dArray[] = {1, 0, 24, 18, -2, 10};
              System.out.println(Arrays.toString(dArray));
              heapsort(dArray);
-             System.out.println(Arrays.toString(dArray));*/
+             System.out.println(Arrays.toString(dArray));
              
              System.out.println("LinearSearch");
              int bArray[] = {2, 5, 9, 12, 18, 20};
@@ -224,11 +232,10 @@ public class Main {
              Insertionsort(kArray);
              System.out.println(Arrays.toString(kArray));
              
-             System.out.println("ReverseParentheses");
-             String frase = "a(bc)de";
-             System.out.println(frase);
-             reverseParentheses(frase);
-             System.out.println(frase);
+            System.out.println("ReverseParentheses");
+            System.out.println(reverseParentheses("a(bc)de"));
+            System.out.println(reverseParentheses("a(bc(de)fg)h"));
+
 	}
 }
         
