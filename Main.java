@@ -462,12 +462,11 @@ public class Main {
         }
         
         public static int shapeArea(int n){
-            if(n == 1){
-                return 1;
-            }else{
-                return 
-            }
+        if ( n == 1){
+            return 1;
         }
+       return 4*(n-1)+shapeArea(n-1); 
+    }
         
         public static LinkedList<Integer> intersect(LinkedList<Integer> list1, LinkedList<Integer> list2){
             if(list1.isEmpty()){
