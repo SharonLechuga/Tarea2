@@ -444,7 +444,7 @@ public class Main {
      }
      
         public static String allStar(String str){
-          if(str.length() == 1){
+          if(str.length() == 0){
             return str;
           }else{
             return  str.charAt(0) + '*' +  allStar(str.substring(1));
@@ -452,20 +452,38 @@ public class Main {
         }
         
         public static String endx(String str){
-            if(str.length() == 0){
-                return str;
-            }else if(str.charAt(0) == 'x'){
+            if (str.length()== 0){
             return str;
-          }else{
-            return str.charAt(0) + endx(str.substring(1));
-          }
+            }else if (str.charAt(0) == 'x'){
+                return endx(str.substring(1)) + 'x';
+            }else{
+                return str.charAt(0) + endx(str.substring(1));
+            }
         }
         
         public static int shapeArea(int n){
-            if(1 - n == 1){
+            if(n == 1){
                 return 1;
-            }else 
+            }else{
+                return 
+            }
         }
+        
+        public static LinkedList<Integer> intersect(LinkedList<Integer> list1, LinkedList<Integer> list2){
+            if(list1.isEmpty()){
+                return list2 ;
+            }else
+                return Li
+            }
+        
+        public static LinkedList<Integer> difference(LinkedList<Integer> list1, LinkedList<Integer> list2){
+            if(list1.isEmpty()){
+                return ;
+            }else
+                return difference()
+            }
+ 
+        
         
         
 
