@@ -310,6 +310,164 @@ public class Main {
             return array11(nums, index + 1);
           }
         }
+        
+        public static void Quicksort(int values [], int start, int end){
+            // If the list has no more than one element, it’s sorted.
+            if(start >= end){
+                return;
+            }
+            // Use the first item as the dividing item.
+            int divider = values[start];
+            // Move items < divider to the front of the array and
+            // items >= divider to the end of the array.
+            Stack<Integer> before = new Stack<Integer>();
+            Stack<Integer> after = new Stack<Integer>();
+            
+            for(int i = start + 1; i <= end; i++){
+                if(values[i] < divider){
+                    before.push(values[i]);
+                }else{
+                    after.push(values[i]);
+                }
+            }
+            
+            int i = start;
+            while(!before.empty()){
+                values[i ++] = before.pop();
+            }
+            int middle = i++;
+            values[middle] = divider;
+            while(!after.empty()){
+                values[i ++] = after.pop();
+            }
+            // Recursively sort the two halves
+            Quicksort(values, start, middle - 1);
+            Quicksort(values, middle + 1, end);
+        }
+        
+        public static void Mergesort(int values [], int scratch [], int start, int end){
+            if(start >= end){
+                return;
+            }
+            int midpoint = (start + end)/2;
+            
+            // Recursively sort the two halves
+            Mergesort(values, scratch, start, midpoint);
+            Mergesort(values, scratch, midpoint + 1, end);
+            
+            int leftIndex = start;
+            int rightIndex = midpoint + 1;
+            int scratchIndex = leftIndex;
+            
+            while(leftIndex <= midpoint && rightIndex <= end){
+                if(values[leftIndex] <= values[rightIndex]){
+                    scratch[scratchIndex] = values[leftIndex];
+                    leftIndex = leftIndex +1;
+                }else{
+                    scratch[scratchIndex] = values[rightIndex];
+                    rightIndex = leftIndex +1;
+                }
+                
+                scratchIndex = scratchIndex +1;
+            } 
+            while(leftIndex <= midpoint){
+                scratch[scratchIndex] = values[leftIndex];
+                leftIndex = leftIndex +1;
+                scratchIndex = scratchIndex +1;
+            }
+            while(rightIndex <= end){
+                scratch[scratchIndex] = values[rightIndex]; 
+                rightIndex = leftIndex +1;
+                scratchIndex = scratchIndex +1;
+            }
+            
+            for(int i = 0; i < midpoint; i++, end--){
+                values[end] = scratch[end];
+            }
+        }
+        // Recursive function to return gcd of a and b
+        public static int GCD(int a, int b){
+        // Everything divides 0 
+        if (a == 0 || b == 0)
+           return 0;
+      
+        // base case
+        if (a == b)
+            return a;
+      
+        // a is greater
+        if (a > b)
+            return GCD(a-b, b);
+        return GCD(a, b-a);
+        }
+    
+    /* Function to calculate x raised to the power y */
+        public static int pow(int x, int y){
+            if (y == 0){
+                return 1;
+            }
+            else if (y%2 == 0){
+                return pow(x, y/2)*pow(x, y/2);
+            }
+            else{
+                return x*pow(x, y/2)*pow(x, y/2);
+            }
+        }
+        public static int gdc(int m, int n){
+         int b;
+         if (m == n){
+             return m;
+         }
+        else if (m > n){
+             b = m - n;
+            return gdc(b,n);
+         }
+         else {
+            b = n - m;
+            return gdc(m,b);    
+         }
+     }
+     
+     public static int pow2(int base, int exponent){
+         if (exponent == 0){
+             return 1;
+         }else{
+             return base *pow(base, (exponent-1));
+         }
+     }
+     
+     public static int consecutiveAddition(int start, int end){
+         if( start > end){
+             return 0;
+         }
+         return start + consecutiveAddition((start + 1), end);
+     }
+     
+        public static String allStar(String str){
+          if(str.length() == 1){
+            return str;
+          }else{
+            return  str.charAt(0) + '*' +  allStar(str.substring(1));
+          }
+        }
+        
+        public static String endx(String str){
+            if(str.length() == 0){
+                return str;
+            }else if(str.charAt(0) == 'x'){
+            return str;
+          }else{
+            return str.charAt(0) + endx(str.substring(1));
+          }
+        }
+        
+        public static int shapeArea(int n){
+            if(1 - n == 1){
+                return 1;
+            }else 
+        }
+        
+        
 
 	public static void main(String[] args) {
             System.out.println("makeHeap");
@@ -359,6 +517,24 @@ public class Main {
             System.out.println("ReverseParentheses");
             System.out.println(reverseParentheses("a(bc)de"));
             System.out.println(reverseParentheses("a(bc(de)fg)h"));
+            
+            System.out.println("Quicksort");
+            int sArray[] = {10, 4, 1, 240, 1024, 23, 21, 3048, 0, 8000, 1000, 3, 14, 16, 4, 9, 15};
+            System.out.println("Before: " + Arrays.toString(sArray));
+            Quicksort(sArray, 0, sArray.length - 1);
+            System.out.println("Quicksort: " + Arrays.toString(sArray));
+            
+            /*System.out.println("Mergesort");
+            int mArray[] = {10, 4, 1, 240, 1024, 23, 21, 3048, 0, 8000, 1000, 3, 14, 16, 4, 9, 15};
+            System.out.println("Before: " + Arrays.toString(mArray));
+            Mergesort(mArray, mArray, 0, mArray.length - 1);
+            System.out.println("Mergesort: " + Arrays.toString(mArray));*/
+            
+            System.out.println("allStar");
+            System.out.println(allStar("hello"));
+            System.out.println(allStar("abc"));
+            System.out.println(allStar("ab"));
+            System.out.println(allStar("a"));
 
 	}
 }
