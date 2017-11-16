@@ -365,24 +365,22 @@ public class Main {
                     leftIndex = leftIndex +1;
                 }else{
                     scratch[scratchIndex] = values[rightIndex];
-                    rightIndex = leftIndex +1;
+                    rightIndex = rightIndex +1;
                 }
                 
                 scratchIndex = scratchIndex +1;
             } 
-            while(leftIndex <= midpoint){
-                scratch[scratchIndex] = values[leftIndex];
-                leftIndex = leftIndex +1;
+            for(int i = leftIndex; i <= midpoint; i++){
+                scratch[scratchIndex] = values[i];
                 scratchIndex = scratchIndex +1;
             }
-            while(rightIndex <= end){
-                scratch[scratchIndex] = values[rightIndex]; 
-                rightIndex = leftIndex +1;
+            for(int i = rightIndex; i <= end; i++){
+                scratch[scratchIndex] = values[i]; 
                 scratchIndex = scratchIndex +1;
             }
             
-            for(int i = 0; i < midpoint; i++, end--){
-                values[end] = scratch[end];
+            for(int i = start; i <= end; i++){
+                values[i] = scratch[i];
             }
         }
         // Recursive function to return gcd of a and b
@@ -467,25 +465,7 @@ public class Main {
         }
        return 4*(n-1)+shapeArea(n-1); 
     }
-        
-        public static LinkedList<Integer> intersect(LinkedList<Integer> list1, LinkedList<Integer> list2){
-            if(list1.isEmpty()){
-                return list2 ;
-            }else
-                return Li
-            }
-        
-        public static LinkedList<Integer> difference(LinkedList<Integer> list1, LinkedList<Integer> list2){
-            if(list1.isEmpty()){
-                return ;
-            }else
-                return difference()
-            }
- 
-        
-        
-        
-
+       
 	public static void main(String[] args) {
             System.out.println("makeHeap");
             int uArray[] = {1, 0, 24, 18, -2, 10};
@@ -541,18 +521,46 @@ public class Main {
             Quicksort(sArray, 0, sArray.length - 1);
             System.out.println("Quicksort: " + Arrays.toString(sArray));
             
-            /*System.out.println("Mergesort");
-            int mArray[] = {10, 4, 1, 240, 1024, 23, 21, 3048, 0, 8000, 1000, 3, 14, 16, 4, 9, 15};
+            System.out.println("Mergesort");
+            int[] mArray = {10, 4, 1, 240, 1024, 23, 21, 3048, 0, 8000, 1000, 3, 14, 16, 4, 9, 15};
+            int[] temp = new int [mArray.length];
             System.out.println("Before: " + Arrays.toString(mArray));
-            Mergesort(mArray, mArray, 0, mArray.length - 1);
-            System.out.println("Mergesort: " + Arrays.toString(mArray));*/
+            Mergesort(mArray, temp, 0, mArray.length - 1);
+            System.out.println("Mergesort: " + Arrays.toString(mArray));
             
             System.out.println("allStar");
             System.out.println(allStar("hello"));
             System.out.println(allStar("abc"));
             System.out.println(allStar("ab"));
             System.out.println(allStar("a"));
-
+            
+            System.out.print("BinaryNode");
+            BinaryNode root = new BinaryNode(1);
+            root.addNode(4);
+            BinaryNode root1 = new BinaryNode(2);
+            root.addNode(5);
+            BinaryNode root2 = new BinaryNode(3);
+            root.addNode(2);
+            BinaryNode root3 = new BinaryNode(4);
+            root.addNode(8);
+            BinaryNode root4 = new BinaryNode(5);
+            root.addNode(1);
+            root.addNode(5);
+        root.addNode(7);
+        root.addNode(8);
+        root.addNode(9);
+        root.addNode(3);
+        root.addNode(1);
+        root.addNode(6);
+        
+        root.preorderTraversal();
+        System.out.println();
+        root.inorderTraversal();
+        System.out.println();
+        root.postorderTraversal();
+        System.out.println();
+        root.depthfirstTraversal();
+        System.out.println();
 	}
 }
         
