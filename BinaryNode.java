@@ -5,38 +5,28 @@
  */
 package practice3;
 
+import java.util.NoSuchElementException;
+
 
 /**
  *
  * @author SharonLechuga
  */
-public class BinaryNode {
+public class BinaryNode  {
     public int value;
     public BinaryNode leftChild;
     public BinaryNode rightChild;
+    private LinkedList<BinaryNode> queue;
     
     public BinaryNode(int value){
         this.value = value;
         leftChild = null;
         rightChild = null;
-        
-        BinaryNode root = new BinaryNode(4);
-        BinaryNode node1 = new BinaryNode(1);
-        BinaryNode node2 = new BinaryNode(2);
-        BinaryNode node3 = new BinaryNode(3);
-        BinaryNode node4 = new BinaryNode(4);
-        BinaryNode node5 = new BinaryNode(5);
-        BinaryNode node6 = new BinaryNode(6);
-        BinaryNode node7 = new BinaryNode(7);
-        BinaryNode node8 = new BinaryNode(8);
-        
-        root.leftChild = node2;
-        root.rightChild = node5;
-        root.leftChild = node1;
-        root.rightChild = node3;
-        root.rightChild = node7;
-        root.leftChild = node6;
-        root.rightChild = node8;        
+                
+    }
+    
+    public void offer(BinaryNode e) {
+        queue.addFirst(e);
     }
     
     private void preorder(BinaryNode node){
@@ -110,23 +100,27 @@ public class BinaryNode {
     }
     
     public void depthFirstTraversal(){
-        Queue<binaryNode> fila = new Queue<binaryNode>() {};
+        Queue<BinaryNode> fila = new Queue<BinaryNode>() {
+            @Override
+            public Object[] toArrayy() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }};
         fila.offer(this);
         
         while(!fila.isEmpty()){
             if(fila.element().leftChild==null){
-                if(fila.element().rightchild==null){
+                if(fila.element().rightChild==null){
                     System.out.print(fila.remove().value);
                 } else{
-                    fila.offer(fila.element().rightchild);
+                    fila.offer(fila.element().rightChild);
                     System.out.print(fila.remove().value);
                 }
             } else{ 
                 fila.offer(fila.element().leftChild);
-                if(fila.element().rightchild==null){
+                if(fila.element().rightChild==null){
                     System.out.print(fila.remove().value);
                 } else{
-                    fila.offer(fila.element().rightchild);
+                    fila.offer(fila.element().rightChild);
                     System.out.print(fila.remove().value);
                 }
             }
@@ -168,4 +162,5 @@ public class BinaryNode {
             }
         }
     }
+    
 }

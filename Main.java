@@ -534,32 +534,41 @@ public class Main {
             System.out.println(allStar("ab"));
             System.out.println(allStar("a"));
             
-            System.out.print("BinaryNode");
-            BinaryNode root = new BinaryNode(1);
-            root.addNode(4);
-            BinaryNode root1 = new BinaryNode(2);
-            root.addNode(5);
-            BinaryNode root2 = new BinaryNode(3);
-            root.addNode(2);
-            BinaryNode root3 = new BinaryNode(4);
-            root.addNode(8);
-            BinaryNode root4 = new BinaryNode(5);
-            root.addNode(1);
-            root.addNode(5);
-        root.addNode(7);
-        root.addNode(8);
-        root.addNode(9);
-        root.addNode(3);
-        root.addNode(1);
-        root.addNode(6);
+            System.out.print("BinaryNode \n");
+            BinaryNode root = new BinaryNode(4);
+        BinaryNode node1 = new BinaryNode(1);
+        BinaryNode node2 = new BinaryNode(2);
+        BinaryNode node3 = new BinaryNode(3);
+        BinaryNode node4 = new BinaryNode(4);
+        BinaryNode node5 = new BinaryNode(5);
+        BinaryNode node6 = new BinaryNode(6);
+        BinaryNode node7 = new BinaryNode(7);
+        BinaryNode node8 = new BinaryNode(8);
         
+        root.leftChild = node2;
+        root.rightChild = node5;
+        root.leftChild = node1;
+        root.rightChild = node3;
+        root.rightChild = node7;
+        root.leftChild = node6;
+        root.rightChild = node8;
+        
+        root.addNode(5);
+        
+        System.out.print("preorderTraversal \n");
         root.preorderTraversal();
         System.out.println();
+        
+        System.out.print("inorderTraversal \n");
         root.inorderTraversal();
         System.out.println();
+        
+        System.out.print("postorderTraversal \n");
         root.postorderTraversal();
         System.out.println();
-        root.depthfirstTraversal();
+        
+        System.out.print("depthFirstTraversal \n");
+       root.depthFirstTraversal();
         System.out.println();
 	}
 }
