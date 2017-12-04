@@ -318,4 +318,30 @@ public class LinkedList<E> implements List<E> {
 
         return getFirst();
     }
+    public void reverseOrder(int first, int last){
+        Node<E> inicio = header;
+        Node<E> fin = header.prev;
+        for(int i = first; i <= last; i++){
+            inicio = fin;
+            inicio = inicio.next;
+            fin = fin.prev;
+        }
+    }
+    
+    public void reverseOrder1(int first, int last){
+            Node<E> current = new Node<E>();
+            int count = 0;
+            for(int i = first; i <= last/2; i++){
+                current.value = get(i);
+                set(i, get(last-count));
+                set(last-count,current.value);
+                count++;
+            }
+        }
+   public static void moveToBeginning(LinkedList<Integer> lst, int i){
+        if (i < 0 || i >= lst.size){
+            throw new IndexOutOfBoundsException();
+       }
+        lst.addFirst(lst.remove(i));
+    }
 }
