@@ -6,6 +6,8 @@ package practice3;
  */
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Vector;
 
 public class Main {
       int [] values;
@@ -464,9 +466,297 @@ public class Main {
             return 1;
         }
        return 4*(n-1)+shapeArea(n-1); 
+    }  
+        
+        public static void superSort(String[] arr) {
+		if (arr.length == 0)
+			return; // empty check
+
+		// Determine max length
+		int max = 0;
+		for (int i = 1; i < arr.length; i++) {
+			// update max length
+			if (max < arr[i].length())
+				max = arr[i].length();
+		}
+
+		// Initialize buckets
+		int bucketCount = 10; // numbers
+		// buckets in maps
+		HashMap<Character, Vector<String>> buckets = new HashMap<Character, Vector<String>>(bucketCount);
+		// create the buckets
+		char a = '0';
+		for (int i = 0; i <= bucketCount; i++, a++) {
+			buckets.put(a, new Vector<String>());
+		}
+
+		// assign array values into buckets
+		for (int i = 0; i < arr.length; i++) {
+			// get first letter of word
+			String current = arr[i];
+			char letter = current.charAt(0);
+			buckets.get(letter).add(arr[i]);
+		}
+
+		// Sort buckets and place back into input array
+		int index = 0; // keeps global array index
+		for (char key = '0'; key <= '9'; key++) {
+			// retrieve the bucker
+			Vector<String> bucket = buckets.get(key);
+
+			// do an insertion sort on bucket
+			for (int i = 1; i < bucket.size(); i++) {
+				// i starts as 1, as a list of size 1 is already sorted
+
+				// save the value at the index and remove it
+				String temp = bucket.get(i);
+				bucket.remove(i);
+
+				// move all values one up, until we find the saved value's location
+				int j;
+				for (j = i - 1; j >= 0 && bucket.get(j).compareToIgnoreCase(temp) > 0; j--) {
+					// to "insert", we need to add and remove
+					bucket.add(j + 1, bucket.get(j));
+					bucket.remove(j);
+				}
+				// place the saved value in the proper location
+				bucket.add(j + 1, temp);
+			}
+
+			// pile the current bucket back into array
+			for (int j = 0; j < bucket.size(); j++) {
+				arr[index++] = bucket.get(j);
+			}
+
+		}
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + "," + " ");
+			
+		}
+
+	}
+        
+       public static LinkedList<Integer> union(LinkedList<Integer> list1, LinkedList<Integer> list2){
+        LinkedList<Integer> union = new LinkedList<Integer> ();
+            while(!list1.isEmpty()){
+                union.addLast(list1.removeFirst());
+            }
+            while(!list2.isEmpty()){
+                union.addLast(list2.removeFirst());
+            }
+        return union;
     }
        
+    public static void moveToBeginning(LinkedList<Integer> lst, int i){
+        if (i < 0 || i >= lst.size()){
+            throw new IndexOutOfBoundsException();
+       }
+        lst.addFirst(lst.remove(i));
+    }
+       
+    public static String cleanString(String str){
+        String nuevo = str.replaceAll("[^a-zA-Z]", "");
+        return nuevo.toUpperCase();
+    }
+    
+    public static int mystery(int m, int n){
+        if(m == 0){
+            return n + 1;
+          }else if(m > 0 && n == 0){
+              return mystery(m - 1, 1);
+            }else if(m > 0 && n > 0){
+              return mystery(m - 1, mystery(m, n-1));
+            }else{
+                return mystery(m , n);
+            }
+    }
+    
+    public static void moveToTop(Stack<Integer> stack, int i){
+        Stack<Integer> temp = new Stack<Integer>();
+        while(stack.peek() != i){
+            int quitar = stack.peek();
+            stack.pop();
+            temp.push(quitar);
+        }stack.pop();
+        while(!temp.empty()){
+            int value = temp.peek();
+            temp.pop();
+            stack.push(value);
+        }
+        stack.push(i);
+    }
 	public static void main(String[] args) {
+            
+            /*System.out.println("Testing train ordering");
+ 		Stack<Integer> train = new Stack<Integer>();
+ 		train.push(2);
+ 		train.push(3);
+ 		train.push(1);
+ 		train.push(2);
+ 		train.push(3);
+ 		
+ 		System.out.println("Train as it arrived to the station: " + Arrays.toString(train.toArray()));
+                
+ 		Stack<Integer> tOne = new Stack<Integer>();
+ 		Stack<Integer> tTwo = new Stack<Integer>();
+ 		Stack<Integer> tThree = new Stack<Integer>();
+                
+                train.pop();
+                train.pop();
+                train.pop();
+                train.pop();
+                train.pop();
+                
+                tOne.push(2);
+                tTwo.push(3);
+                tThree.push(1);
+                tOne.push(2);
+                tThree.pop();
+                train.push(1);
+                tOne.pop();
+                train.push(2);
+                tOne.pop();
+                train.push(2);
+                tTwo.pop();
+                train.push(3);
+                train.push(3);
+
+                System.out.println("Train ordered by priority: " + Arrays.toString(train.toArray()));
+ 		System.out.println();
+                
+ 		Stack<Integer> towerOne = new Stack<Integer>();
+ 		Stack<Integer> towerTwo = new Stack<Integer>();
+ 		Stack<Integer> towerThree = new Stack<Integer>();
+                
+                towerOne.push(3);
+                towerOne.push(2);
+                towerOne.push(1);
+                
+ 		System.out.println("At the beginning");
+ 		System.out.println("Hanoi tower #1: " + Arrays.toString(towerOne.toArray()));
+ 		System.out.println("Hanoi tower #2: " + Arrays.toString(towerTwo.toArray()));
+ 		System.out.println("Hanoi tower #3: " + Arrays.toString(towerThree.toArray()));
+ 		
+ 		towerOne.pop();
+ 		towerTwo.push(1);
+                towerOne.pop();
+ 		towerThree.push(2);
+                towerTwo.pop();
+                towerThree.push(1);
+                towerOne.pop();
+                towerTwo.push(3);
+                towerThree.pop();
+                towerOne.push(1);
+                towerThree.pop();
+                towerTwo.push(2);
+                towerOne.pop();
+                towerTwo.push(1);
+                 
+ 		System.out.println("At the end");
+ 		System.out.println("Hanoi tower #1: " + Arrays.toString(towerOne.toArray()));
+ 		System.out.println("Hanoi tower #2: " + Arrays.toString(towerTwo.toArray()));
+ 		System.out.println("Hanoi tower #3: " + Arrays.toString(towerThree.toArray()));
+ 		System.out.println();*/
+            
+              System.out.println("** TEST SINGLY-LINKEDLIST CLASS **");
+		System.out.println("\t** USING INTEGERS **");
+		SLinkedList<Integer> iList = new SLinkedList<Integer>();
+		
+		System.out.println("Testing: addFirst(i | i >= 0 && i < 10) + toString");
+		System.out.println(iList);
+		for(int i = 0; i < 10; i++) {
+			iList.addFirst(i);
+			System.out.println(iList);
+		}
+		/*LinkedList<Character> chList = new LinkedList<Character>(),
+                newList = new LinkedList<Character>();
+                chList.addFirst('A');
+                chList.addFirst('V');
+                chList.addFirst('A');
+                chList.addFirst('J');
+                System.out.println(chList);
+                while (chList.size() !=0) {
+                newList.addFirst(chList.getFirst());
+                newList.addLast(chList.getFirst());
+                chList.removeFirst();
+                System.out.println(newList);
+                }*/
+                SLinkedList<Character> chList = new SLinkedList<Character>(),
+                newList = new SLinkedList<Character>();
+                chList.addFirst('A');
+                chList.addFirst('V');
+                chList.addFirst('A');
+                chList.addFirst('J');
+                System.out.println(chList);
+                while (chList.size() !=0) {
+                newList.addFirst(chList.getFirst());
+                newList.addLast(chList.getFirst());
+                chList.removeFirst();
+                System.out.println(newList);
+                }
+                System.out.println(newList.countValue('A'));
+                LinkedList<Character> rList = new LinkedList<Character>();
+                rList.addFirst('A');
+                rList.addFirst('V');
+                rList.addFirst('A');
+                rList.addFirst('J');
+                rList.reverseOrder(0, 3);
+                rList.reverseOrder1(0, 3);
+                System.out.println(rList);
+                
+                System.out.println("Testing: superSort");
+                String [] ar = {"123","398","210","019","528","003","513","129","220","294"};
+                superSort(ar);
+                System.out.Println(Arrays.toString(ar.toArray()));
+                
+                System.out.println("Testing: cleanString");
+                System.out.println(cleanString("YOLO234567$&!"));
+                System.out.println(cleanString("a#b$c"));
+                System.out.println(cleanString("a&b"));
+                
+                System.out.println("Testing: mystery");
+                System.out.println(mystery(0,0));
+                System.out.println(mystery(3,4));
+                System.out.println(mystery(1,3));
+                System.out.println(mystery(2,2));
+               
+                System.out.println("Testing: moveToTop");
+                Stack<Integer> prueba = new Stack<Integer>();
+                prueba.push(9);
+                prueba.push(8);
+                prueba.push(7);
+                prueba.push(5);
+                prueba.push(3);
+                moveToTop(prueba,8);
+                System.out.println(Arrays.toString(prueba.toArray()));
+                
+                System.out.println("Testing Union");
+                LinkedList<Integer> a = new LinkedList<Integer>();
+                a.addFirst(5);
+                a.addFirst(4);
+                a.addFirst(3);
+                a.addFirst(2);
+                a.addFirst(1);
+                a.addFirst(0);
+                LinkedList<Integer> b = new LinkedList<Integer>();
+                b.addFirst(8);
+                b.addFirst(7);
+                b.addFirst(6);
+                b.addFirst(5);
+                System.out.println("Resultado"+union(a,b));
+                
+                System.out.println("Testing moveToBeginning: ");
+                LinkedList<Integer> ind = new LinkedList<Integer>();
+                ind.addFirst(5);
+                ind.addFirst(4);
+                ind.addFirst(3);
+                ind.addFirst(2);
+                ind.addFirst(1);
+                moveToBeginning(ind,2);
+                System.out.println("Resultado" + ind);
+
+                
+                /*
             System.out.println("makeHeap");
             int uArray[] = {1, 0, 24, 18, -2, 10};
              System.out.println(Arrays.toString(uArray));
@@ -569,7 +859,7 @@ public class Main {
         
         System.out.print("depthFirstTraversal \n");
        root.depthFirstTraversal();
-        System.out.println();
+        System.out.println();*/
 	}
 }
         
